@@ -1,21 +1,27 @@
 function loadCustomItems(options) {
     var currentPage = parseInt($(options.currentPage).first().text());
-    var pageEnd = parseInt($((options.paginationSelector) + ' a:last').attr('href').match(/\d+/));
-
+    var pageEnd = parseInt($(options.paginationSelector + ' a:eq(' + ($(options.paginationSelector + ' a').length - 2) + ')').attr('href').match(/\d+/));
+    
     var showButton = $(options.autoLoadButton);
-    var pageCount = $(options.pageCountElement).length;
+    var pageCount = parseInt($((options.paginationSelector) + ' a:last').attr('href').match(/\d+/));
 
     console.log(showButton)
-
+    console.log(currentPage)
+    console.log(pageEnd)
+    console.log(pageCount)
+    
     if (showButton.length){
-        if (($(options.paginationSelector).length) && (currentPage !== pageEnd)) {
+        if (($(options.paginationSelector).length) && (currentPage !== pageEnd && currentPage !== pageCount)) {
             $(options.containerSelector).after('<div id="loadMore">Загрузить</div>');
         }
     }
 
     function loadNextPage() {
         currentPage++;
-        var nextPageURL = 'page=' + currentPage + '.html';
+        console.log(currentPage)
+        console.log(pageEnd)
+        
+        var nextPageURL = '?page=' + currentPage;
         if (currentPage === pageCount || currentPage === pageEnd) {
             $(options.loadMoreButton).hide();
         }
