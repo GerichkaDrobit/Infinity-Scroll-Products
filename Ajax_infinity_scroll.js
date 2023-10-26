@@ -4,12 +4,6 @@ function loadCustomItems(options) {
     
     var showButton = $(options.autoLoadButton);
     var pageCount = parseInt($((options.paginationSelector) + ' a:last').attr('href').match(/\d+/));
-
-    console.log(showButton)
-    console.log(currentPage)
-    console.log(pageEnd)
-    console.log(pageCount)
-    
     if (showButton.length){
         if (($(options.paginationSelector).length) && (currentPage !== pageEnd && currentPage !== pageCount)) {
             $(options.containerSelector).after('<div id="loadMore">Загрузить</div>');
@@ -18,9 +12,6 @@ function loadCustomItems(options) {
 
     function loadNextPage() {
         currentPage++;
-        console.log(currentPage)
-        console.log(pageEnd)
-        
         var nextPageURL = '?page=' + currentPage;
         if (currentPage === pageCount || currentPage === pageEnd) {
             $(options.loadMoreButton).hide();
