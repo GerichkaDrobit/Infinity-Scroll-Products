@@ -2,17 +2,20 @@ function loadCustomItems(options) {
     var currentPage = parseInt($(options.currentPage).first().text());
     var pageEnd = parseInt($(options.paginationSelector + ' a:eq(' + ($(options.paginationSelector + ' a').length - 2) + ')').attr('href').match(/\d+/));
     
-    var showButton = $(options.autoLoadButton);
+    var autoLoadButton = options.autoLoadButton;
+    var getURL = options.getURL;
+
     var pageCount = parseInt($((options.paginationSelector) + ' a:last').attr('href').match(/\d+/));
-    if (showButton === true){
-        if (($(options.paginationSelector).length) && (currentPage !== pageEnd && currentPage !== pageCount)) {
+
+    if (autoLoadButton === true){
+        if (($(options.paginationSelector).length) && (currentPage !== pageEnd || currentPage !== pageCount)) {
             $(options.containerSelector).after('<div id="loadMore">Загрузить</div>');
         }
     }
 
     function loadNextPage() {
         currentPage++;
-        var nextPageURL = '?page=' + currentPage;
+        var nextPageURL = getURL + currentPage + '.html';
         if (currentPage === pageCount || currentPage === pageEnd) {
             $(options.loadMoreButton).hide();
         }
@@ -26,8 +29,9 @@ function loadCustomItems(options) {
         });
     }
 
-    showButton.on('click', loadNextPage);
+    $(options.loadMoreButton).on('click', loadNextPage);
 }
+
 /*Вызов*/
 loadCustomItems({
     containerSelector: '.custom-dc', //Контейнер с элементами
@@ -37,5 +41,6 @@ loadCustomItems({
     currentPage: '.pager .active', //Определение страницы нахождения
     autoLoadButton: true, //Вариант работы: true - кнопка добавляется сама, false - кнопка добавляется вручную
     loadMoreButton: '#loadMore', //ID или класс кнопки, делайте че хотите
+    getURL: 'page=', //GET параметр пагинации
 });
 /*Конец вызова*/
