@@ -35,7 +35,7 @@ function loadCustomItems(options) {
         });
     }
 
-    $(options.loadMoreButton).on('click', loadNextPage);
+    showButton.on('click', loadNextPage);
 }
 /*Вызов*/
 loadCustomItems({
