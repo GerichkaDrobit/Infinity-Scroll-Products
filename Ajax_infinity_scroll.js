@@ -4,7 +4,7 @@ function loadCustomItems(options) {
     
     var showButton = $(options.autoLoadButton);
     var pageCount = parseInt($((options.paginationSelector) + ' a:last').attr('href').match(/\d+/));
-    if (showButton.length){
+    if (showButton === true){
         if (($(options.paginationSelector).length) && (currentPage !== pageEnd && currentPage !== pageCount)) {
             $(options.containerSelector).after('<div id="loadMore">Загрузить</div>');
         }
@@ -35,7 +35,7 @@ loadCustomItems({
     paginationSelector: '.pager', //Контейнер с пагинацией
     pageCountElement: '.pager a, .pager span', //Подсчет всех элементов пагинации
     currentPage: '.pager .active', //Определение страницы нахождения
-    autoLoadButton: 1, //Вариант работы: 1 - кнопка добавляется сама, 2 - кнопка добавляется вручную
+    autoLoadButton: true, //Вариант работы: true - кнопка добавляется сама, false - кнопка добавляется вручную
     loadMoreButton: '#loadMore', //ID или класс кнопки, делайте че хотите
 });
 /*Конец вызова*/
